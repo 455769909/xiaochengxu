@@ -9,6 +9,12 @@
     <view class="common-panel-header-dpName">{{titleItem.name}}</view>
     <view class="common-panel-header-dpValue">{{titleItem.value}}</view>
   </view>
+
+  <button style="position: relative; left: -375rpx; top: 169rpx; width: 233rpx; height: 146rpx; display: block; box-sizing: border-box">电量</button>
+
+  <text style="position: relative; left: -122rpx; top: 169rpx">KW/h</text>
+
+  <text style="position: relative; left: -404rpx; top: 169rpx; width: 169rpx; height: 50rpx; display: block; box-sizing: border-box">文本</text>
 </view>
 
 <block wx:if="{{isRoDpListShow}}">
@@ -39,3 +45,25 @@
     </block>
   </block>
 </view>
+<view class="scroll-view" hidden="{{isCountdown}}">
+  <block wx:if="{{isRwDpListShow}}">
+    <block wx:for="{{rwDpList}}" wx:key="{{item.code}}" wx:for-item="item">
+      <block wx:if="{{item.type === 'Integer'}}">
+        <Integer model:value="{{item.value}}" values="{{item.values}}" dpCode="{{item.code}}" dpName="{{item.name}}"
+          bind:sendDp="sendDp" />
+      </block>
+      <block wx:if="{{item.type === 'Enum'}}">
+        <Enum model:value="{{item.value}}" values="{{item.values}}" dpCode="{{item.code}}" dpName="{{item.name}}"
+          bind:sendDp="sendDp" />
+      </block>
+    </block>
+  </block>
+</view>
+<view class="button-bottom">
+  <van-button model:value="{{item.value}}" values="{{item.values}}" dpCode="{{item.code}}" dpName="{{item.name}}"
+          class="button-style" type="warning" bindtap="switch">开关</van-button>
+  <van-button class="button-style" type="info" bindtap="epc">电量</van-button>
+  <van-button class="button-style" type="info" bindtap="switchTimer">计时</van-button>
+  <van-button class="button-style" type="warning" bindtap="log">报警</van-button>
+</view>
+<view style="position:relative; width: 100%; background: #d3d3d3; min-height: 100px"></view>
